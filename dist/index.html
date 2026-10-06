@@ -204,7 +204,8 @@
     }
 
     .save-result,
-    .instagram-link {
+    .instagram-link,
+    .menu-link {
       padding: 12px 18px;
       border: 0;
       border-radius: 999px;
@@ -230,13 +231,18 @@
       text-decoration: none;
     }
 
+    .footer-links { display: grid; gap: 14px; width: min(100%, 340px); margin: 0 auto 20px; }
+    .menu-link { display: flex; align-items: center; justify-content: center; background: var(--tomato); box-shadow: 0 6px 0 var(--tomato-dark); text-decoration: none; }
+    .menu-link:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
+    .menu-link:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
+
     .save-result:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
     .instagram-link:active { transform: translateY(4px); box-shadow: 0 2px 0 #702759; }
     .save-result:focus-visible,
     .instagram-link:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
     .save-result[disabled] { cursor: wait; opacity: .62; }
 
-    footer { margin-top: auto; padding-top: 22px; color: rgba(52,32,23,.56); font-size: .78rem; }
+    footer { width: 100%; margin-top: auto; padding-top: 22px; color: rgba(52,32,23,.56); font-size: .78rem; }
 
     @media (max-width: 420px) {
       .shell { padding-inline: 16px; }
@@ -292,7 +298,13 @@
       </div>
     </section>
 
-    <footer>이 기기에서는 자정까지 같은 메뉴가 표시돼요.</footer>
+    <footer>
+      <nav class="footer-links" aria-label="pomo 외부 링크">
+        <a class="instagram-link" href="https://www.instagram.com/pomo_table/" target="_blank" rel="noopener noreferrer">인스타그램</a>
+        <a class="menu-link" href="https://m.place.naver.com/restaurant/2036324372/menu/list?entry=plt" target="_blank" rel="noopener noreferrer">pomo 메뉴</a>
+      </nav>
+      이 기기에서는 자정까지 같은 메뉴가 표시돼요.
+    </footer>
   </main>
 
   <script>
