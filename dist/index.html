@@ -20,6 +20,7 @@
     }
 
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
     html { min-height: 100%; background: #ead3a6; }
 
@@ -92,9 +93,10 @@
       filter: drop-shadow(0 4px 3px rgba(52,32,23,.32));
     }
 
+    .wheel-window { position: absolute; inset: 9px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px var(--tomato-dark); }
     .wheel {
       position: absolute;
-      inset: 9px;
+      inset: 0;
       border: 9px solid var(--cream);
       border-radius: 50%;
       background: var(--tomato);
@@ -127,6 +129,15 @@
       transform: translate(-50%, -50%) rotate(var(--angle));
     }
 
+    .wheel-image { width: 15%; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--cream); border-radius: 50%; box-shadow: 0 2px 6px rgba(52,32,23,.3); }
+    .spin-button { margin: 0 0 18px; min-height: 52px; padding: 14px 32px; border: 0; border-radius: 999px; background: var(--tomato); color: var(--cream); box-shadow: 0 6px 0 var(--tomato-dark); font: inherit; font-weight: 800; cursor: pointer; }
+    .spin-button:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
+    .spin-button:focus-visible, .scratch-cover:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
+    .spin-button:disabled { cursor: default; opacity: .65; }
+    .scratch-area { position: relative; border-radius: 18px; overflow: hidden; }
+    .scratch-area .result-inner { min-height: 150px; padding: 12px; }
+    .scratch-cover { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; border-radius: 18px; }
+    .scratch-hint { margin: 12px 0 0; font-size: .9rem; color: var(--tomato-dark); }
     .pasta-art[hidden] { display: none; }
 
     .result-card {
@@ -146,6 +157,7 @@
     .result-card.visible { opacity: 1; transform: translateY(0); }
 
     .result-inner { display: flex; align-items: center; gap: 18px; text-align: left; }
+    .result-inner > div { min-width: 0; overflow-wrap: anywhere; }
 
     .pasta-art {
       width: 126px;
@@ -275,16 +287,20 @@
         <a class="menu-link" href="https://m.place.naver.com/restaurant/2036324372/menu/list?entry=plt" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>pomo 메뉴</a>
       </nav>
 
-    <section class="roulette-stage" aria-label="파스타 룰렛이 돌아가는 중입니다">
+    <section class="roulette-stage" aria-label="파스타 메뉴 룰렛">
       <img class="pointer" src="tomato-pointer.png" alt="" aria-hidden="true">
+      <div class="wheel-window">
       <div class="wheel" id="wheel" aria-hidden="true">
+      </div>
       </div>
     </section>
 
-    <p class="status" id="status" role="status" aria-live="polite">오늘의 메뉴를 고르는 중…</p>
+    <button class="spin-button" id="spinButton" type="button">오늘 나의 메뉴는?</button>
+    <p class="status" id="status" role="status" aria-live="polite">버튼을 눌러 오늘의 메뉴를 골라보세요.</p>
 
-    <section class="result-card" id="result" aria-live="polite" aria-atomic="true">
-      <div class="result-inner">
+    <section class="result-card" id="result" hidden>
+      <div class="scratch-area" id="scratchArea">
+      <div class="result-inner" id="resultDetails" aria-hidden="true">
         <img class="pasta-art" id="resultImage" src="menu-pomodoro.png" alt="뽀모도로 컵 스파게티">
         <div>
           <p class="result-kicker">오늘의 선택</p>
@@ -292,14 +308,17 @@
           <p class="result-note" id="resultNote"></p>
         </div>
       </div>
-      <aside class="notice" aria-labelledby="noticeTitle">
+      <canvas class="scratch-cover" id="scratchCover" role="button" tabindex="0" aria-label="결과를 긁어서 확인하기. 키보드는 Enter 또는 스페이스 키를 누르세요." aria-describedby="scratchHint"></canvas>
+      </div>
+      <p class="scratch-hint" id="scratchHint">손가락이나 마우스로 긁어 오늘의 메뉴를 확인하세요.</p>
+      <aside class="notice" id="resultNotice" hidden aria-labelledby="noticeTitle">
         <p class="notice-title" id="noticeTitle">주의사항</p>
         <ol class="notice-list">
           <li>매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.</li>
           <li>당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.</li>
         </ol>
       </aside>
-      <div class="result-actions">
+      <div class="result-actions" id="resultActions" hidden>
         <a class="instagram-link" href="https://www.instagram.com/pomo_table/" target="_blank" rel="noopener noreferrer" aria-label="Instagram에서 pomo_table 계정 열기">@pomo_table 팔로우</a>
         <button class="save-result" id="saveResult" type="button">당첨사진 저장하기</button>
       </div>
@@ -322,7 +341,6 @@
 
       // null slots are display-only and can never be selected as a prize.
       const slots = [0, 1, null, 2, 4, null, 3, 0, null, 1, 2, null, 4, 3];
-      const menuLabels = ['뽀모도로', '라자냐', '꼬막\n봉골레', '라구', '대서양\n수제\n훈제 연어'];
       const colors = ['#af3b2e', '#a06b17', '#48704a', '#a84720', '#98503c'];
       const slotAngle = 360 / slots.length;
       const STORAGE_KEY = 'pasta-roulette-daily-v1';
@@ -331,10 +349,15 @@
         `${menuIndex === null ? '#60584f' : colors[menuIndex]} ${i * slotAngle}deg ${(i + 1) * slotAngle}deg`
       ).join(', ')})`;
       slots.forEach((menuIndex, i) => {
-        const label = document.createElement('span');
-        label.className = 'wheel-label';
-        label.style.whiteSpace = 'pre-line';
-        label.textContent = menuIndex === null ? '꽝' : menuLabels[menuIndex];
+        const label = document.createElement(menuIndex === null ? 'span' : 'img');
+        label.className = menuIndex === null ? 'wheel-label' : 'wheel-label wheel-image';
+        if (menuIndex === null) {
+          label.textContent = '꽝';
+        } else {
+          label.src = menus[menuIndex].image;
+          label.alt = menus[menuIndex].name;
+          label.draggable = false;
+        }
         const angle = i * slotAngle;
         const radians = angle * Math.PI / 180;
         label.style.left = `${50 + Math.sin(radians) * 34}%`;
@@ -351,7 +374,21 @@
       const saveResult = document.getElementById('saveResult');
       const today = document.getElementById('today');
       const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const spinButton = document.getElementById('spinButton');
+      const scratchArea = document.getElementById('scratchArea');
+      const scratchCover = document.getElementById('scratchCover');
+      const resultDetails = document.getElementById('resultDetails');
+      const scratchHint = document.getElementById('scratchHint');
+      const resultNotice = document.getElementById('resultNotice');
+      const resultActions = document.getElementById('resultActions');
+      const scratchContext = scratchCover.getContext('2d', { willReadFrequently: true });
       let turn = 0;
+      let daily;
+      let revealed = false;
+      let scratchReady = false;
+      let activePointer = null;
+      let lastPoint = null;
+      saveResult.disabled = true;
 
       const koreaDateKey = () => new Intl.DateTimeFormat('en-CA', {
         timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit'
@@ -378,9 +415,122 @@
         return { index, isNew: true };
       }
 
-      const daily = getDailyChoice();
+      function revealResult() {
+        if (revealed || !scratchReady) return;
+        revealed = true;
+        scratchCover.hidden = true;
+        scratchHint.hidden = true;
+        resultDetails.removeAttribute('aria-hidden');
+        resultNotice.hidden = false;
+        resultActions.hidden = false;
+        saveResult.disabled = false;
+        status.textContent = `오늘의 메뉴는 ${menus[daily.index].name}!`;
+        stage.setAttribute('aria-label', `룰렛 결과: ${menus[daily.index].name}`);
+      }
+
+      function sizeScratchCover() {
+        if (!scratchReady || revealed) return;
+        const bounds = scratchArea.getBoundingClientRect();
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.round(bounds.width * ratio);
+        const height = Math.round(bounds.height * ratio);
+        if (!width || !height || (scratchCover.width === width && scratchCover.height === height)) return;
+        const previous = document.createElement('canvas');
+        previous.width = scratchCover.width;
+        previous.height = scratchCover.height;
+        previous.getContext('2d').drawImage(scratchCover, 0, 0);
+        scratchCover.width = width;
+        scratchCover.height = height;
+        if (scratchCover.dataset.painted) {
+          scratchContext.drawImage(previous, 0, 0, width, height);
+          return;
+        }
+        const coating = scratchContext.createLinearGradient(0, 0, width, height);
+        coating.addColorStop(0, '#dce0dd');
+        coating.addColorStop(.45, '#adb5b0');
+        coating.addColorStop(.7, '#e8ebe7');
+        coating.addColorStop(1, '#a3ada5');
+        scratchContext.fillStyle = coating;
+        scratchContext.fillRect(0, 0, width, height);
+        scratchContext.textAlign = 'center';
+        scratchContext.textBaseline = 'middle';
+        scratchContext.fillStyle = '#342017';
+        scratchContext.font = `800 ${18 * ratio}px system-ui, sans-serif`;
+        scratchContext.fillText('오늘의 메뉴는?', width / 2, height / 2 - 14 * ratio);
+        scratchContext.font = `600 ${14 * ratio}px system-ui, sans-serif`;
+        scratchContext.fillText('여기를 긁어보세요', width / 2, height / 2 + 18 * ratio);
+        scratchCover.dataset.painted = 'true';
+      }
+
+      function checkScratchProgress() {
+        if (revealed || !scratchReady) return;
+        const { width, height } = scratchCover;
+        const pixels = scratchContext.getImageData(0, 0, width, height).data;
+        let clear = 0;
+        let count = 0;
+        for (let y = 0; y < height; y += 12) {
+          for (let x = 0; x < width; x += 12) {
+            count++;
+            if (pixels[(y * width + x) * 4 + 3] < 128) clear++;
+          }
+        }
+        if (clear / count >= .4) revealResult();
+      }
+
+      function scratchAt(event) {
+        const bounds = scratchCover.getBoundingClientRect();
+        const scaleX = scratchCover.width / bounds.width;
+        const scaleY = scratchCover.height / bounds.height;
+        const point = { x: (event.clientX - bounds.left) * scaleX, y: (event.clientY - bounds.top) * scaleY };
+        scratchContext.globalCompositeOperation = 'destination-out';
+        scratchContext.lineWidth = 38 * scaleX;
+        scratchContext.lineCap = 'round';
+        scratchContext.beginPath();
+        scratchContext.moveTo(lastPoint ? lastPoint.x : point.x, lastPoint ? lastPoint.y : point.y);
+        scratchContext.lineTo(point.x, point.y);
+        scratchContext.stroke();
+        scratchContext.beginPath();
+        scratchContext.arc(point.x, point.y, 19 * scaleX, 0, Math.PI * 2);
+        scratchContext.fill();
+        scratchContext.globalCompositeOperation = 'source-over';
+        lastPoint = point;
+      }
+
+      scratchCover.addEventListener('pointerdown', (event) => {
+        if (!scratchReady || revealed || activePointer !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
+        event.preventDefault();
+        activePointer = event.pointerId;
+        lastPoint = null;
+        scratchCover.setPointerCapture(event.pointerId);
+        scratchAt(event);
+      });
+      scratchCover.addEventListener('pointermove', (event) => {
+        if (event.pointerId !== activePointer || revealed) return;
+        scratchAt(event);
+      });
+      function finishScratch(event) {
+        if (event.pointerId !== activePointer) return;
+        activePointer = null;
+        lastPoint = null;
+        checkScratchProgress();
+      }
+      scratchCover.addEventListener('pointerup', finishScratch);
+      scratchCover.addEventListener('pointercancel', finishScratch);
+      scratchCover.addEventListener('lostpointercapture', finishScratch);
+      scratchCover.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          revealResult();
+          if (revealed) saveResult.focus();
+        }
+      });
+      new ResizeObserver(sizeScratchCover).observe(scratchArea);
 
       function spin() {
+        if (spinButton.disabled) return;
+        daily = getDailyChoice();
+        spinButton.disabled = true;
+        spinButton.textContent = '메뉴 고르는 중…';
         saveResult.disabled = true;
         result.classList.remove('visible');
         stage.setAttribute('aria-label', '파스타 룰렛이 돌아가는 중입니다');
@@ -404,12 +554,14 @@
           resultImage.hidden = !menu.image;
           if (menu.image) resultImage.src = menu.image;
           resultImage.alt = menu.name;
+          result.hidden = false;
+          scratchReady = true;
+          sizeScratchCover();
           result.classList.add('visible');
-          status.textContent = daily.isNew
-            ? '오늘의 메뉴가 정해졌어요!'
-            : '오늘은 이 메뉴로 정해져 있어요.';
-          stage.setAttribute('aria-label', `룰렛 결과: ${menu.name}`);
-          saveResult.disabled = false;
+          spinButton.textContent = '오늘의 메뉴 선택 완료';
+          status.textContent = '가려진 결과를 긁어 메뉴를 확인하세요.';
+          stage.setAttribute('aria-label', '룰렛이 멈췄습니다. 결과를 긁어 확인하세요.');
+          result.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'nearest' });
         }, delay);
       }
 
@@ -548,6 +700,7 @@
       }
 
       saveResult.addEventListener('click', async () => {
+        if (!revealed) return;
         saveResult.disabled = true;
         const originalText = saveResult.textContent;
         saveResult.textContent = '사진 만드는 중…';
@@ -577,7 +730,7 @@
         }
       });
 
-      window.setTimeout(() => spin(), 350);
+      spinButton.addEventListener('click', spin);
     })();
   </script>
 </body>
