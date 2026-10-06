@@ -324,6 +324,7 @@
         <ol class="notice-list">
           <li>매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.</li>
           <li>당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.</li>
+          <li>네이버 리뷰 작성시 캔음료를 서비스로 드립니다. 직원에게 미리 문의해주세요.</li>
         </ol>
       </aside>
       <div class="result-actions" id="resultActions" hidden>
@@ -604,23 +605,13 @@
       }
 
       function drawImageCover(ctx, image, x, y, width, height, radius) {
-        const imageRatio = image.naturalWidth / image.naturalHeight;
-        const boxRatio = width / height;
-        let sourceWidth = image.naturalWidth;
-        let sourceHeight = image.naturalHeight;
-        let sourceX = 0;
-        let sourceY = 0;
-        if (imageRatio > boxRatio) {
-          sourceWidth = image.naturalHeight * boxRatio;
-          sourceX = (image.naturalWidth - sourceWidth) / 2;
-        } else {
-          sourceHeight = image.naturalWidth / boxRatio;
-          sourceY = (image.naturalHeight - sourceHeight) / 2;
-        }
+        const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+        const sourceWidth = width / scale;
+        const sourceHeight = height / scale;
         ctx.save();
         roundedRect(ctx, x, y, width, height, radius);
         ctx.clip();
-        ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
+        ctx.drawImage(image, (image.naturalWidth - sourceWidth) / 2, (image.naturalHeight - sourceHeight) / 2, sourceWidth, sourceHeight, x, y, width, height);
         ctx.restore();
       }
 
@@ -654,13 +645,19 @@
         ctx.font = '700 30px Georgia, serif';
         ctx.fillText('POMO TABLE · PASTA DEL GIORNO', 540, 108);
         ctx.fillStyle = '#752219';
-        ctx.font = '800 70px Georgia, "Noto Serif KR", serif';
-        ctx.fillText('오늘의 당첨 메뉴', 540, 205);
+        const title = '뽀모 공덕점 오늘의 당첨 메뉴';
+        let titleSize = 56;
+        ctx.font = `800 ${titleSize}px Georgia, "Noto Serif KR", serif`;
+        while (ctx.measureText(title).width > 900) {
+          titleSize -= 1;
+          ctx.font = `800 ${titleSize}px Georgia, "Noto Serif KR", serif`;
+        }
+        ctx.fillText(title, 540, 205);
         ctx.fillStyle = 'rgba(52,32,23,.68)';
         ctx.font = '500 32px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
         ctx.fillText(displayDate, 540, 264);
 
-        roundedRect(ctx, 90, 330, 900, 380, 42);
+        roundedRect(ctx, 90, 330, 900, 400, 42);
         ctx.fillStyle = 'rgba(255,249,235,.94)';
         ctx.fill();
         ctx.strokeStyle = 'rgba(117,34,25,.16)';
@@ -669,19 +666,16 @@
 
         const pastaImage = resultImage;
         if (menu.image) {
-          if (!pastaImage.complete) await pastaImage.decode();
+          await pastaImage.decode();
           drawImageCover(ctx, pastaImage, 180, 365, 720, 240, 28);
         } else {
           ctx.fillStyle = '#752219';
           ctx.font = '800 56px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
           drawWrappedText(ctx, menu.name, 540, 475, 720, 76);
         }
-        ctx.fillStyle = '#3f6541';
-        ctx.font = '800 26px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        ctx.fillText('오늘의 선택', 540, 635);
         ctx.fillStyle = '#752219';
         ctx.font = '800 48px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        drawWrappedText(ctx, menu.name, 540, 690, 790, 62);
+        drawWrappedText(ctx, menu.name, 540, 657, 790, 54);
 
         roundedRect(ctx, 90, 760, 900, 400, 34);
         ctx.fillStyle = 'rgba(255,249,235,.78)';
@@ -692,8 +686,9 @@
         ctx.fillText('주의사항', 145, 830);
         ctx.fillStyle = '#342017';
         ctx.font = '600 29px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 900, 790, 47);
-        drawWrappedText(ctx, '2. 당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.', 145, nextY + 28, 790, 47);
+        let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 884, 790, 42);
+        nextY = drawWrappedText(ctx, '2. 인스타그램 팔로잉과 함께 직원에게 보여주세요.', 145, nextY + 18, 790, 42);
+        drawWrappedText(ctx, '3. 네이버 리뷰 작성시 캔음료를 서비스로 드립니다. 직원에게 미리 문의해주세요.', 145, nextY + 18, 790, 42);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#752219';
