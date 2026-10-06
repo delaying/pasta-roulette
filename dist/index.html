@@ -45,6 +45,8 @@
       text-align: center;
     }
 
+    .intro-panel { width: 100%; padding: 18px 12px; border: 1px solid #ded1b9; border-radius: 20px; background: #fff9ed; }
+
     .eyebrow {
       margin: 0 0 5px;
       color: var(--basil);
@@ -64,9 +66,9 @@
 
     .date {
       margin: 10px 0 0;
-      color: rgba(52,32,23,.68);
-      font-size: .92rem;
-      font-weight: 650;
+      color: #493024;
+      font-size: .95rem;
+      font-weight: 700;
     }
 
     .roulette-stage {
@@ -200,9 +202,15 @@
     .status {
       min-height: 24px;
       margin: 0 0 10px;
-      color: rgba(52,32,23,.7);
-      font-size: .91rem;
-      font-weight: 650;
+      max-width: 100%;
+      padding: 10px 16px;
+      border: 1px solid #ded1b9;
+      border-radius: 999px;
+      background: #fff9ed;
+      color: #493024;
+      font-size: 1rem;
+      font-weight: 750;
+      line-height: 1.5;
     }
 
     .result-actions {
@@ -253,7 +261,8 @@
     .instagram-link:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
     .save-result[disabled] { cursor: wait; opacity: .62; }
 
-    footer { width: 100%; margin-top: auto; padding-top: 22px; color: rgba(52,32,23,.56); font-size: .78rem; }
+    footer { width: 100%; margin-top: auto; padding-top: 22px; color: #493024; font-size: .875rem; font-weight: 650; line-height: 1.5; }
+    .footer-note { display: inline-block; padding: 8px 14px; border: 1px solid #ded1b9; border-radius: 999px; background: #fff9ed; }
 
     @media (max-width: 420px) {
       .shell { padding-inline: 16px; }
@@ -275,9 +284,11 @@
 </head>
 <body>
   <main class="shell">
+    <header class="intro-panel">
     <p class="eyebrow">뽀모 공덕점, 50팀 한정 제공</p>
     <h1>뽀모 컵 파스타 룰렛</h1>
     <p class="date" id="today"></p>
+    </header>
 
       <nav class="top-links" aria-label="pomo 외부 링크">
         <a class="instagram-link" href="https://www.instagram.com/pomo_table/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>인스타그램</a>
@@ -322,7 +333,7 @@
     </section>
 
     <footer>
-      이 기기에서는 자정까지 같은 메뉴가 표시돼요.
+      <span class="footer-note">이 기기에서는 자정까지 같은 메뉴가 표시돼요.</span>
     </footer>
   </main>
 
@@ -339,7 +350,7 @@
       // null slots are display-only and can never be selected as a prize.
       const slots = [0, 1, null, 2, 4, null, 3, 0, null, 1, 2, null, 4, 3];
       // Colors belong to slots so neighboring options stay distinct, including the last and first.
-      const slotColors = ['#bf9362', '#5d4636', '#88754d', '#c79745', '#6e3734', '#726942', '#b16740', '#5d4636', '#c79745', '#88754d', '#a4502c', '#726942', '#6e3734', '#c79745'];
+      const slotColors = ['#b39a7c', '#625247', '#8a8065', '#b79a60', '#74504f', '#7c765c', '#a9795d', '#625247', '#b79a60', '#8a8065', '#9a6449', '#7c765c', '#74504f', '#b79a60'];
       const slotAngle = 360 / slots.length;
       const STORAGE_KEY = 'pasta-roulette-daily-v1';
       const wheel = document.getElementById('wheel');
