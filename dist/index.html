@@ -102,15 +102,11 @@
       border: 9px solid var(--cream);
       border-radius: 50%;
       background: conic-gradient(
-        from -22.5deg,
-        #af3b2e 0deg 45deg,
-        #f0b84d 45deg 90deg,
-        #48704a 90deg 135deg,
-        #d86d3c 135deg 180deg,
-        #ecd27b 180deg 225deg,
-        #8c3e2d 225deg 270deg,
-        #5c8054 270deg 315deg,
-        #e29a45 315deg 360deg
+        from -45deg,
+        #af3b2e 0deg 90deg,
+        #f0b84d 90deg 180deg,
+        #48704a 180deg 270deg,
+        #d86d3c 270deg 360deg
       );
       box-shadow: inset 0 0 0 3px rgba(84,37,19,.18), 0 0 0 3px var(--tomato-dark);
       transition: transform 4.6s cubic-bezier(.12,.72,.12,1);
@@ -132,7 +128,7 @@
       z-index: 1;
       top: 50%;
       left: 50%;
-      width: 31%;
+      width: 39%;
       color: #fffdf4;
       font-size: clamp(.66rem, 2.8vw, .92rem);
       font-weight: 800;
@@ -142,13 +138,9 @@
     }
 
     .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -148%) translateY(-115px); }
+    .wheel-label:nth-child(2) { transform: rotate(90deg) translate(-50%, -148%) translateY(-115px); }
+    .wheel-label:nth-child(3) { transform: rotate(180deg) translate(-50%, -148%) translateY(-115px); }
+    .wheel-label:nth-child(4) { transform: rotate(270deg) translate(-50%, -148%) translateY(-115px); }
 
     .result-card {
       width: 100%;
@@ -189,6 +181,19 @@
 
     .result-note { margin: 7px 0 0; color: rgba(52,32,23,.69); font-size: .9rem; line-height: 1.45; }
 
+    .notice {
+      margin-top: 18px;
+      padding: 15px 16px;
+      border-radius: 16px;
+      background: rgba(230,170,72,.16);
+      color: rgba(52,32,23,.82);
+      text-align: left;
+    }
+
+    .notice-title { margin: 0 0 8px; color: var(--tomato-dark); font-size: .94rem; font-weight: 800; }
+    .notice-list { margin: 0; padding-left: 1.35rem; font-size: .88rem; line-height: 1.55; word-break: keep-all; }
+    .notice-list li + li { margin-top: 5px; }
+
     .status {
       min-height: 24px;
       margin: 0 0 10px;
@@ -204,7 +209,7 @@
       margin-top: 14px;
     }
 
-    .spin-again,
+    .save-result,
     .instagram-link {
       padding: 12px 18px;
       border: 0;
@@ -217,7 +222,7 @@
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .spin-again {
+    .save-result {
       background: var(--tomato);
       box-shadow: 0 6px 0 var(--tomato-dark);
     }
@@ -231,11 +236,11 @@
       text-decoration: none;
     }
 
-    .spin-again:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
+    .save-result:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
     .instagram-link:active { transform: translateY(4px); box-shadow: 0 2px 0 #702759; }
-    .spin-again:focus-visible,
+    .save-result:focus-visible,
     .instagram-link:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
-    .spin-again[disabled] { cursor: wait; opacity: .62; }
+    .save-result[disabled] { cursor: wait; opacity: .62; }
 
     footer { margin-top: auto; padding-top: 22px; color: rgba(52,32,23,.56); font-size: .78rem; }
 
@@ -252,13 +257,9 @@
       .roulette-stage { margin-top: 18px; }
       .wheel-label { font-size: .61rem; }
       .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -145%) translateY(-92px); }
+      .wheel-label:nth-child(2) { transform: rotate(90deg) translate(-50%, -145%) translateY(-92px); }
+      .wheel-label:nth-child(3) { transform: rotate(180deg) translate(-50%, -145%) translateY(-92px); }
+      .wheel-label:nth-child(4) { transform: rotate(270deg) translate(-50%, -145%) translateY(-92px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -276,14 +277,10 @@
     <section class="roulette-stage" aria-label="파스타 룰렛이 돌아가는 중입니다">
       <div class="pointer" aria-hidden="true"></div>
       <div class="wheel" id="wheel" aria-hidden="true">
-        <span class="wheel-label">알리오<br>올리오</span>
-        <span class="wheel-label">까르보<br>나라</span>
-        <span class="wheel-label">봉골레</span>
-        <span class="wheel-label">라구</span>
-        <span class="wheel-label">로제</span>
-        <span class="wheel-label">바질<br>페스토</span>
-        <span class="wheel-label">아라비<br>아따</span>
-        <span class="wheel-label">트러플<br>크림</span>
+        <span class="wheel-label">뽀모도로<br>컵 스파게티</span>
+        <span class="wheel-label">라자냐<br>Small</span>
+        <span class="wheel-label">꼬막 봉골레<br>컵 스파게티</span>
+        <span class="wheel-label">라구<br>컵 스파게티</span>
       </div>
     </section>
 
@@ -298,9 +295,16 @@
           <p class="result-note" id="resultNote"></p>
         </div>
       </div>
+      <aside class="notice" aria-labelledby="noticeTitle">
+        <p class="notice-title" id="noticeTitle">주의사항</p>
+        <ol class="notice-list">
+          <li>매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.</li>
+          <li>당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.</li>
+        </ol>
+      </aside>
       <div class="result-actions">
-        <button class="spin-again" id="spinAgain" type="button">같은 결과로 다시 돌리기</button>
         <a class="instagram-link" href="https://www.instagram.com/pomo_table/" target="_blank" rel="noopener noreferrer" aria-label="Instagram에서 pomo_table 계정 열기">@pomo_table 팔로우</a>
+        <button class="save-result" id="saveResult" type="button">당첨사진 저장하기</button>
       </div>
     </section>
 
@@ -310,14 +314,10 @@
   <script>
     (() => {
       const menus = [
-        { name: '알리오 올리오', note: '마늘과 올리브오일의 담백한 한 접시' },
-        { name: '까르보나라', note: '고소하고 진한 풍미가 당기는 날' },
-        { name: '봉골레', note: '바다 향을 담은 산뜻한 선택' },
-        { name: '라구 파스타', note: '천천히 끓여낸 깊은 맛으로 든든하게' },
-        { name: '로제 파스타', note: '부드러움과 새콤함 사이의 완벽한 균형' },
-        { name: '바질 페스토', note: '향긋하고 초록빛 가득한 한 접시' },
-        { name: '아라비아따', note: '기분 좋은 매콤함으로 오늘을 깨우기' },
-        { name: '트러플 크림', note: '향긋하고 부드러운 특별한 선택' }
+        { name: '뽀모도로 컵 스파게티', note: '상큼한 토마토 풍미를 담은 메뉴' },
+        { name: '라자냐 Small', note: '겹겹이 쌓인 풍성한 맛의 라자냐' },
+        { name: '꼬막 봉골레 컵 스파게티', note: '꼬막과 마늘 향이 어우러진 메뉴' },
+        { name: '라구 컵 스파게티', note: '깊고 진한 라구 소스를 담은 메뉴' }
       ];
 
       const STORAGE_KEY = 'pasta-roulette-daily-v1';
@@ -327,7 +327,7 @@
       const result = document.getElementById('result');
       const resultName = document.getElementById('resultName');
       const resultNote = document.getElementById('resultNote');
-      const spinAgain = document.getElementById('spinAgain');
+      const saveResult = document.getElementById('saveResult');
       const today = document.getElementById('today');
       const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
       let turn = 0;
@@ -359,15 +359,15 @@
 
       const daily = getDailyChoice();
 
-      function spin(isReplay = false) {
-        spinAgain.disabled = true;
+      function spin() {
+        saveResult.disabled = true;
         result.classList.remove('visible');
         stage.setAttribute('aria-label', '파스타 룰렛이 돌아가는 중입니다');
-        status.textContent = isReplay ? '오늘의 결과를 다시 확인하는 중…' : '오늘의 메뉴를 고르는 중…';
+        status.textContent = '오늘의 메뉴를 고르는 중…';
 
         turn += 1;
         const fullTurns = 5 + turn;
-        const target = fullTurns * 360 - daily.index * 45;
+        const target = fullTurns * 360 - daily.index * 90;
 
         requestAnimationFrame(() => {
           wheel.style.transform = `rotate(${target}deg)`;
@@ -379,16 +379,151 @@
           resultName.textContent = menu.name;
           resultNote.textContent = menu.note;
           result.classList.add('visible');
-          status.textContent = daily.isNew && !isReplay
+          status.textContent = daily.isNew
             ? '오늘의 파스타가 정해졌어요!'
             : '오늘은 이 메뉴로 정해져 있어요.';
           stage.setAttribute('aria-label', `룰렛 결과: ${menu.name}`);
-          spinAgain.disabled = false;
+          saveResult.disabled = false;
         }, delay);
       }
 
-      spinAgain.addEventListener('click', () => spin(true));
-      window.setTimeout(() => spin(false), 350);
+      function roundedRect(ctx, x, y, width, height, radius) {
+        const r = Math.min(radius, width / 2, height / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + width, y, x + width, y + height, r);
+        ctx.arcTo(x + width, y + height, x, y + height, r);
+        ctx.arcTo(x, y + height, x, y, r);
+        ctx.arcTo(x, y, x + width, y, r);
+        ctx.closePath();
+      }
+
+      function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+        const chars = [...text];
+        let line = '';
+        let currentY = y;
+        chars.forEach((char) => {
+          const test = line + char;
+          if (line && ctx.measureText(test).width > maxWidth) {
+            ctx.fillText(line, x, currentY);
+            line = char;
+            currentY += lineHeight;
+          } else {
+            line = test;
+          }
+        });
+        if (line) ctx.fillText(line, x, currentY);
+        return currentY + lineHeight;
+      }
+
+      async function createResultImage() {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        const menu = menus[daily.index];
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;
+        canvas.height = 1350;
+        const ctx = canvas.getContext('2d');
+
+        const background = ctx.createLinearGradient(0, 0, 1080, 1350);
+        background.addColorStop(0, '#fff4d8');
+        background.addColorStop(1, '#efd29a');
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.globalAlpha = .12;
+        ctx.fillStyle = '#9f2f22';
+        ctx.beginPath();
+        ctx.arc(970, 120, 230, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#3f6541';
+        ctx.beginPath();
+        ctx.arc(70, 1260, 260, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#3f6541';
+        ctx.font = '700 30px Georgia, serif';
+        ctx.fillText('POMO TABLE · PASTA DEL GIORNO', 540, 108);
+        ctx.fillStyle = '#752219';
+        ctx.font = '800 70px Georgia, "Noto Serif KR", serif';
+        ctx.fillText('오늘의 당첨 메뉴', 540, 205);
+        ctx.fillStyle = 'rgba(52,32,23,.68)';
+        ctx.font = '500 32px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.fillText(displayDate, 540, 264);
+
+        roundedRect(ctx, 90, 330, 900, 380, 42);
+        ctx.fillStyle = 'rgba(255,249,235,.94)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(117,34,25,.16)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        const pastaImage = document.querySelector('.pasta-art');
+        if (pastaImage && pastaImage.complete) ctx.drawImage(pastaImage, 420, 365, 240, 240);
+        ctx.fillStyle = '#3f6541';
+        ctx.font = '800 26px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.fillText('오늘의 선택', 540, 635);
+        ctx.fillStyle = '#752219';
+        ctx.font = '800 48px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        drawWrappedText(ctx, menu.name, 540, 690, 790, 62);
+
+        roundedRect(ctx, 90, 760, 900, 400, 34);
+        ctx.fillStyle = 'rgba(255,249,235,.78)';
+        ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#752219';
+        ctx.font = '800 34px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.fillText('주의사항', 145, 830);
+        ctx.fillStyle = '#342017';
+        ctx.font = '600 29px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 900, 790, 47);
+        drawWrappedText(ctx, '2. 당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.', 145, nextY + 28, 790, 47);
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#752219';
+        ctx.font = '800 32px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.fillText('@pomo_table', 540, 1238);
+        ctx.fillStyle = 'rgba(52,32,23,.6)';
+        ctx.font = '500 24px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.fillText('직원 확인용 당첨 화면', 540, 1286);
+
+        return new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('이미지를 만들 수 없습니다.')), 'image/png');
+        });
+      }
+
+      saveResult.addEventListener('click', async () => {
+        saveResult.disabled = true;
+        const originalText = saveResult.textContent;
+        saveResult.textContent = '사진 만드는 중…';
+        try {
+          const blob = await createResultImage();
+          const filename = `pomo-오늘의-파스타-${koreaDateKey()}.png`;
+          const file = new File([blob], filename, { type: 'image/png' });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: '오늘의 파스타 당첨 결과' });
+            status.textContent = '당첨사진을 공유했어요.';
+          } else {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+            status.textContent = '당첨사진을 저장했어요.';
+          }
+        } catch (error) {
+          if (error && error.name !== 'AbortError') status.textContent = '사진 저장에 실패했어요. 화면을 직접 캡처해 주세요.';
+        } finally {
+          saveResult.textContent = originalText;
+          saveResult.disabled = false;
+        }
+      });
+
+      window.setTimeout(() => spin(), 350);
     })();
   </script>
 </body>
