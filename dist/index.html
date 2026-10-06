@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#9f2f22">
   <meta name="description" content="하루에 한 번 만나는 오늘의 파스타 룰렛">
-  <title>오늘의 파스타 룰렛</title>
+  <title>뽀모 컵 파스타 룰렛</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23f8d98b' stroke='%239f2f22' stroke-width='6'/%3E%3Cpath d='M17 27c11-8 27-6 31 1M16 34c11-7 27-6 33 1M19 41c10-6 22-5 28-1' fill='none' stroke='%239f2f22' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='18' r='4' fill='%233d673c'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -51,12 +51,9 @@
     .eyebrow {
       margin: 0 0 5px;
       color: var(--basil);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: .88rem;
-      font-style: italic;
+      font-size: .92rem;
       font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      letter-spacing: .02em;
     }
 
     h1 {
@@ -86,10 +83,10 @@
     .pointer {
       position: absolute;
       z-index: 4;
-      top: -31px;
+      top: -26px;
       left: 50%;
-      width: 64px;
-      height: 70px;
+      width: 54.4px;
+      height: 59.5px;
       object-fit: contain;
       transform: translateX(-50%);
       filter: drop-shadow(0 4px 3px rgba(52,32,23,.32));
@@ -140,14 +137,14 @@
       transform-origin: 0 0;
     }
 
-    .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -148%) translateY(-115px); }
-    .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -148%) translateY(-115px); }
+    .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -148%) translateY(-88px); }
+    .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -148%) translateY(-88px); }
 
     .result-card {
       width: 100%;
@@ -270,14 +267,14 @@
     @media (max-width: 360px) {
       .roulette-stage { margin-top: 18px; }
       .wheel-label { font-size: .76rem; }
-      .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -145%) translateY(-92px); }
-      .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -145%) translateY(-92px); }
+      .wheel-label:nth-child(1) { transform: rotate(0deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(2) { transform: rotate(45deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(3) { transform: rotate(90deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(4) { transform: rotate(135deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(5) { transform: rotate(180deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(6) { transform: rotate(225deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(7) { transform: rotate(270deg) translate(-50%, -145%) translateY(-72px); }
+      .wheel-label:nth-child(8) { transform: rotate(315deg) translate(-50%, -145%) translateY(-72px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -288,8 +285,8 @@
 </head>
 <body>
   <main class="shell">
-    <p class="eyebrow">Pasta del giorno</p>
-    <h1>오늘의 파스타</h1>
+    <p class="eyebrow">뽀모 공덕점, 50팀 한정 제공</p>
+    <h1>뽀모 컵 파스타 룰렛</h1>
     <p class="date" id="today"></p>
 
     <section class="roulette-stage" aria-label="파스타 룰렛이 돌아가는 중입니다">
