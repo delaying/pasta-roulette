@@ -30,11 +30,7 @@
       margin: 0;
       color: var(--ink);
       font-family: "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 15% 12%, rgba(255,255,255,.55) 0 2px, transparent 3px),
-        radial-gradient(circle at 81% 72%, rgba(117,34,25,.08) 0 2px, transparent 3px),
-        linear-gradient(145deg, #fff4d8 0%, #f1d59e 100%);
-      background-size: 34px 34px, 42px 42px, auto;
+      background: #f5efdf url('pomo-background.jpg') center top / 426px auto repeat;
       overflow-x: hidden;
     }
 
@@ -343,7 +339,7 @@
       // null slots are display-only and can never be selected as a prize.
       const slots = [0, 1, null, 2, 4, null, 3, 0, null, 1, 2, null, 4, 3];
       // Colors belong to slots so neighboring options stay distinct, including the last and first.
-      const slotColors = ['#af3b2e', '#bb8a2c', '#48704a', '#b56b3b', '#60584f', '#bb8a2c', '#af3b2e', '#48704a', '#bb8a2c', '#60584f', '#b56b3b', '#48704a', '#af3b2e', '#bb8a2c'];
+      const slotColors = ['#bf9362', '#5d4636', '#88754d', '#c79745', '#6e3734', '#726942', '#b16740', '#5d4636', '#c79745', '#88754d', '#a4502c', '#726942', '#6e3734', '#c79745'];
       const slotAngle = 360 / slots.length;
       const STORAGE_KEY = 'pasta-roulette-daily-v1';
       const wheel = document.getElementById('wheel');
