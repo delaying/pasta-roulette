@@ -129,7 +129,8 @@
       transform: translate(-50%, -50%) rotate(var(--angle));
     }
 
-    .wheel-image { width: 15%; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--cream); border-radius: 50%; box-shadow: 0 2px 6px rgba(52,32,23,.3); }
+    .wheel-image { width: 15%; aspect-ratio: 1; object-fit: cover; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 2px 6px rgba(52,32,23,.3); }
+    .wheel-blank { display: flex; align-items: center; justify-content: center; background: #34313c; color: #fff; }
     .spin-button { margin: 0 0 18px; min-height: 52px; padding: 14px 32px; border: 0; border-radius: 999px; background: var(--tomato); color: var(--cream); box-shadow: 0 6px 0 var(--tomato-dark); font: inherit; font-weight: 800; cursor: pointer; }
     .spin-button:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
     .spin-button:focus-visible, .scratch-cover:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
@@ -341,16 +342,17 @@
 
       // null slots are display-only and can never be selected as a prize.
       const slots = [0, 1, null, 2, 4, null, 3, 0, null, 1, 2, null, 4, 3];
-      const colors = ['#af3b2e', '#a06b17', '#48704a', '#a84720', '#98503c'];
+      // Colors belong to slots so neighboring options stay distinct, including the last and first.
+      const slotColors = ['#b73538', '#237bba', '#e1b332', '#7650ad', '#24957c', '#dc7030', '#3255a1', '#bd4087', '#709535', '#903a42', '#268eaa', '#d69526', '#6752a7', '#33865d'];
       const slotAngle = 360 / slots.length;
       const STORAGE_KEY = 'pasta-roulette-daily-v1';
       const wheel = document.getElementById('wheel');
       wheel.style.background = `conic-gradient(from ${-slotAngle / 2}deg, ${slots.map((menuIndex, i) =>
-        `${menuIndex === null ? '#60584f' : colors[menuIndex]} ${i * slotAngle}deg ${(i + 1) * slotAngle}deg`
+        `${slotColors[i]} ${i * slotAngle}deg ${(i + 1) * slotAngle}deg`
       ).join(', ')})`;
       slots.forEach((menuIndex, i) => {
         const label = document.createElement(menuIndex === null ? 'span' : 'img');
-        label.className = menuIndex === null ? 'wheel-label' : 'wheel-label wheel-image';
+        label.className = menuIndex === null ? 'wheel-label wheel-image wheel-blank' : 'wheel-label wheel-image';
         if (menuIndex === null) {
           label.textContent = '꽝';
         } else {
