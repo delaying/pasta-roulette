@@ -197,23 +197,44 @@
       font-weight: 650;
     }
 
-    .spin-again {
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
       margin-top: 14px;
+    }
+
+    .spin-again,
+    .instagram-link {
       padding: 12px 18px;
       border: 0;
       border-radius: 999px;
       color: #fffaf0;
-      background: var(--tomato);
       font: inherit;
       font-size: .93rem;
       font-weight: 750;
-      box-shadow: 0 6px 0 var(--tomato-dark);
       cursor: pointer;
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
+    .spin-again {
+      background: var(--tomato);
+      box-shadow: 0 6px 0 var(--tomato-dark);
+    }
+
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(115deg, #833ab4, #c13584 48%, #e1306c 72%, #f77737);
+      box-shadow: 0 6px 0 #702759;
+      text-decoration: none;
+    }
+
     .spin-again:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tomato-dark); }
-    .spin-again:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
+    .instagram-link:active { transform: translateY(4px); box-shadow: 0 2px 0 #702759; }
+    .spin-again:focus-visible,
+    .instagram-link:focus-visible { outline: 3px solid #1b6483; outline-offset: 4px; }
     .spin-again[disabled] { cursor: wait; opacity: .62; }
 
     footer { margin-top: auto; padding-top: 22px; color: rgba(52,32,23,.56); font-size: .78rem; }
@@ -224,6 +245,7 @@
       .wheel-label:nth-child(n) { --radius: 29vw; }
       .result-inner { gap: 10px; }
       .pasta-art { width: 76px; height: 76px; }
+      .result-actions { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 360px) {
@@ -276,7 +298,10 @@
           <p class="result-note" id="resultNote"></p>
         </div>
       </div>
-      <button class="spin-again" id="spinAgain" type="button">같은 결과로 다시 돌리기</button>
+      <div class="result-actions">
+        <button class="spin-again" id="spinAgain" type="button">같은 결과로 다시 돌리기</button>
+        <a class="instagram-link" href="https://www.instagram.com/pomo_table/" target="_blank" rel="noopener noreferrer" aria-label="Instagram에서 pomo_table 계정 열기">@pomo_table 팔로우</a>
+      </div>
     </section>
 
     <footer>이 기기에서는 자정까지 같은 메뉴가 표시돼요.</footer>
