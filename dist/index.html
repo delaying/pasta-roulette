@@ -657,7 +657,7 @@
         ctx.font = '500 32px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
         ctx.fillText(displayDate, 540, 264);
 
-        roundedRect(ctx, 90, 330, 900, 400, 42);
+        roundedRect(ctx, 90, 330, 900, 420, 42);
         ctx.fillStyle = 'rgba(255,249,235,.94)';
         ctx.fill();
         ctx.strokeStyle = 'rgba(117,34,25,.16)';
@@ -674,19 +674,19 @@
           drawWrappedText(ctx, menu.name, 540, 475, 720, 76);
         }
         ctx.fillStyle = '#752219';
-        ctx.font = '800 48px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        drawWrappedText(ctx, menu.name, 540, 657, 790, 54);
+        ctx.font = '800 56px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        drawWrappedText(ctx, menu.name, 540, 676, 790, 62);
 
-        roundedRect(ctx, 90, 760, 900, 400, 34);
+        roundedRect(ctx, 90, 780, 900, 400, 34);
         ctx.fillStyle = 'rgba(255,249,235,.78)';
         ctx.fill();
         ctx.textAlign = 'left';
         ctx.fillStyle = '#752219';
         ctx.font = '800 34px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        ctx.fillText('주의사항', 145, 830);
+        ctx.fillText('주의사항', 145, 850);
         ctx.fillStyle = '#342017';
         ctx.font = '600 29px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-        let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 884, 790, 42);
+        let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 904, 790, 42);
         nextY = drawWrappedText(ctx, '2. 인스타그램 팔로잉과 함께 직원에게 보여주세요.', 145, nextY + 18, 790, 42);
         drawWrappedText(ctx, '3. 네이버 리뷰 작성시 캔음료를 서비스로 드립니다. 직원에게 미리 문의해주세요.', 145, nextY + 18, 790, 42);
 
