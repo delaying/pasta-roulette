@@ -199,19 +199,6 @@
     .notice-list { margin: 0; padding-left: 1.35rem; font-size: .88rem; line-height: 1.55; word-break: keep-all; }
     .notice-list li + li { margin-top: 5px; }
 
-    .status {
-      min-height: 24px;
-      margin: 0 0 10px;
-      max-width: 100%;
-      padding: 10px 16px;
-      border: 1px solid #ded1b9;
-      border-radius: 999px;
-      background: #fff9ed;
-      color: #493024;
-      font-size: 1rem;
-      font-weight: 750;
-      line-height: 1.5;
-    }
 
     .result-actions {
       display: grid;
@@ -304,7 +291,6 @@
     </section>
 
     <button class="spin-button" id="spinButton" type="button">오늘 나의 메뉴는?</button>
-    <p class="status" id="status" role="status" aria-live="polite">버튼을 눌러 오늘의 메뉴를 골라보세요.</p>
 
     <section class="result-card" id="result" hidden>
       <div class="scratch-area" id="scratchArea">
@@ -324,7 +310,7 @@
         <ol class="notice-list">
           <li>매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.</li>
           <li>당첨된 메뉴를 스크린샷으로 저장해 인스타그램 팔로잉과 함께 직원에게 보여주세요.</li>
-          <li>네이버 리뷰 작성시 캔음료를 서비스로 드립니다. 직원에게 미리 문의해주세요.</li>
+          <li>네이버 리뷰 작성시 아메리카노 1잔을 서비스로 드립니다. 직원에게 미리 문의해주세요.</li>
         </ol>
       </aside>
       <div class="result-actions" id="resultActions" hidden>
@@ -376,7 +362,6 @@
         wheel.appendChild(label);
       });
       const stage = document.querySelector('.roulette-stage');
-      const status = document.getElementById('status');
       const result = document.getElementById('result');
       const resultName = document.getElementById('resultName');
       const resultNote = document.getElementById('resultNote');
@@ -434,7 +419,6 @@
         resultNotice.hidden = false;
         resultActions.hidden = false;
         saveResult.disabled = false;
-        status.textContent = `오늘의 메뉴는 ${menus[daily.index].name}!`;
         stage.setAttribute('aria-label', `룰렛 결과: ${menus[daily.index].name}`);
       }
 
@@ -544,7 +528,6 @@
         saveResult.disabled = true;
         result.classList.remove('visible');
         stage.setAttribute('aria-label', '파스타 룰렛이 돌아가는 중입니다');
-        status.textContent = '오늘의 메뉴를 고르는 중…';
 
         turn += 1;
         const fullTurns = 8 + turn;
@@ -569,7 +552,6 @@
           sizeScratchCover();
           result.classList.add('visible');
           spinButton.textContent = '오늘의 메뉴 선택 완료';
-          status.textContent = '가려진 결과를 긁어 메뉴를 확인하세요.';
           stage.setAttribute('aria-label', '룰렛이 멈췄습니다. 결과를 긁어 확인하세요.');
           result.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'nearest' });
         }, delay);
@@ -688,7 +670,7 @@
         ctx.font = '600 29px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
         let nextY = drawWrappedText(ctx, '1. 매장 내 식사 주문 고객 한정, 테이블당 1개 제공됩니다.', 145, 904, 790, 42);
         nextY = drawWrappedText(ctx, '2. 인스타그램 팔로잉과 함께 직원에게 보여주세요.', 145, nextY + 18, 790, 42);
-        drawWrappedText(ctx, '3. 네이버 리뷰 작성시 캔음료를 서비스로 드립니다. 직원에게 미리 문의해주세요.', 145, nextY + 18, 790, 42);
+        drawWrappedText(ctx, '3. 네이버 리뷰 작성시 아메리카노 1잔을 서비스로 드립니다. 직원에게 미리 문의해주세요.', 145, nextY + 18, 790, 42);
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#752219';
@@ -714,7 +696,6 @@
           const file = new File([blob], filename, { type: 'image/png' });
           if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({ files: [file], title: '오늘의 파스타 당첨 결과' });
-            status.textContent = '당첨사진을 공유했어요.';
           } else {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -724,10 +705,9 @@
             link.click();
             link.remove();
             window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-            status.textContent = '당첨사진을 저장했어요.';
           }
         } catch (error) {
-          if (error && error.name !== 'AbortError') status.textContent = '사진 저장에 실패했어요. 화면을 직접 캡처해 주세요.';
+          if (error && error.name !== 'AbortError') window.alert('사진 저장에 실패했어요. 화면을 직접 캡처해 주세요.');
         } finally {
           saveResult.textContent = originalText;
           saveResult.disabled = false;
